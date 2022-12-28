@@ -1,10 +1,16 @@
 import Details from "./details"
 
-const ShowOutput = ({name}) => {
-    return (<p>{name}</p>)
+const ShowOutput = ({name, setNewCountry}) => {
+    const handleClick = () => {
+        setNewCountry(name)
+    }
+    return (<p>{name} <button onClick={handleClick}>show</button></p>)
 }
 
-const Countries = ({countries, newCountry}) => {
+
+
+
+const Countries = ({countries, newCountry, setNewCountry}) => {
     if (newCountry === '') {
         return (<p>Please enter a country name</p>)
     }
@@ -14,7 +20,7 @@ const Countries = ({countries, newCountry}) => {
         return <p>Too many matches, specify another filter</p>
     } else if (arrayLength < 10 && arrayLength > 1) {
         return(countriesToShow.map(country => 
-            <ShowOutput key={country.name.common} name={country.name.common} />))
+            <ShowOutput key={country.name.common} name={country.name.common} setNewCountry={setNewCountry}/>))
     } else if (arrayLength === 1) {
         return(<Details country={countriesToShow[0]} />)
     } else {
