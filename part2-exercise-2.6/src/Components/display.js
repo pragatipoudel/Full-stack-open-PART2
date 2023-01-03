@@ -1,11 +1,23 @@
-const ShowOutput = ({name, number}) => {
-    return (<p>{name} {number}</p>)
+
+const ShowOutput = ({id, name, number, handleDelete}) => {
+  const handleDeleteClicker = () => {
+    handleDelete(id)
+  }
+    return (
+    <div>
+      <p>
+        {name} {number} 
+        <button onClick={handleDeleteClicker}>Delete</button>
+      </p>
+    </div>)
   }
 
-const Persons = ({persons, newSearch}) => {
+
+
+const Persons = ({persons, newSearch, handleDelete}) => {
     const personsToShow = (newSearch === '') ? persons : persons.filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()))
     return(personsToShow.map(name =>
-      <ShowOutput key={name.name} name={name.name} number={name.number} />
+      <ShowOutput key={name.id} id={name.id} name={name.name} number={name.number} handleDelete={handleDelete} />
       ))
 }
 
