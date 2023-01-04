@@ -1,24 +1,14 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": 1
-    },
-    {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": 4
+      "name": "Pragati Poudel",
+      "number": "2563160885",
+      "id": "Pragati Poudel"
     },
     {
       "name": "Bibek Dahal",
-      "number": "2563160885",
-      "id": 6
-    },
-    {
-      "name": "Bellatrix Lestrange",
-      "number": "6547891456",
-      "id": 7
+      "number": "7892564",
+      "id": "Bibek Dahal"
     }
   ]
 }
