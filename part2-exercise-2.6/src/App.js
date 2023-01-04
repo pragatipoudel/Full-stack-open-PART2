@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import Filter from './Components/filter'
 import Form from './Components/form'
 import Persons from './Components/display'
-import axios from "axios";
 import noteService from './services/persons';
+import Notification from './Components/notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
+  const [newMessage, setNewMessage] = useState('')
+
 
   useEffect(() => {
     noteService
@@ -28,10 +30,14 @@ const App = () => {
         const neObject = {name: newName, number: newNumber, id: newName }
         noteService
           .update(newName, neObject)
-          .then(response => {
+          .then(() => {
             setPersons(persons.map(person => person.id !== newName ? person: neObject))
             setNewName('')
             setNewNumber('')
+            setNewMessage(`Updated ${nameObject.name}`)
+            setTimeout(() => {
+              setNewMessage('')
+             }, 5000)
           })
       }
       return
@@ -45,17 +51,24 @@ const App = () => {
     }
     noteService
       .create(nameObject)
-      .then (response => {
+      .then (() => {
         setPersons(persons.concat(nameObject))
         setNewName('')
         setNewNumber('')
+        setNewMessage(`Added ${nameObject.name}`)
+        setTimeout(() => {
+          setNewMessage('')
+        }, 5000)
+      
       })
+
+          
     }
   
   const handleDelete = (id) => {
     noteService
       .remove(id)
-      .then(response => {
+      .then(() => {
         setPersons(persons.filter(person => person.id !== id))
       })
   }
@@ -76,6 +89,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={newMessage} />
       <Filter name={newSearch} handle={handleSearch} />
       <h2>add new</h2>
       <Form addName={addName} newName={newName} handleChangeName={handleChangeName} newNumber={newNumber} handleChangeNumber={handleChangeNumber}/>
@@ -83,5 +97,5 @@ const App = () => {
       <Persons persons={persons} newSearch={newSearch} handleDelete={handleDelete}/>
     </div>
   )
-}
+  }
 export default App;
