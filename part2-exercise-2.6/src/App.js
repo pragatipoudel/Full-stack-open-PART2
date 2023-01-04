@@ -4,6 +4,7 @@ import Form from './Components/form'
 import Persons from './Components/display'
 import noteService from './services/persons';
 import Notification from './Components/notification'
+import Error from './Components/error'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -11,6 +12,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
   const [newMessage, setNewMessage] = useState('')
+  const [newError, setNewError] = useState('')
+
 
 
   useEffect(() => {
@@ -34,11 +37,18 @@ const App = () => {
             setPersons(persons.map(person => person.id !== newName ? person: neObject))
             setNewName('')
             setNewNumber('')
-            setNewMessage(`Updated ${nameObject.name}`)
+            setNewMessage(`Updated ${newName}`)
             setTimeout(() => {
               setNewMessage('')
              }, 5000)
           })
+          .catch(error => {
+            setNewError(`Information of ${newName}  has already been removed from the server`)
+            setTimeout(() => {
+              setNewError('')
+            }, 5000)
+          })
+
       }
       return
     }
@@ -89,7 +99,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={newMessage} />
+      <Notification message={newMessage} error={newError} />
+      <Error error={newError} />
       <Filter name={newSearch} handle={handleSearch} />
       <h2>add new</h2>
       <Form addName={addName} newName={newName} handleChangeName={handleChangeName} newNumber={newNumber} handleChangeNumber={handleChangeNumber}/>

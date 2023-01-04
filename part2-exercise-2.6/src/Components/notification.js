@@ -1,4 +1,4 @@
-const Notification = ({message}) => {
+const Notification = ({message, error}) => {
     const messageStyle = {
         color: 'green',
         background: 'lightgray',
@@ -9,15 +9,18 @@ const Notification = ({message}) => {
         marginBottom: 10
 
     }
+ 
+
     if (message === '') {
         return null
-    }
+    } else {
+        return (
+            <div style={messageStyle}>
+                {message}
+            </div>
+        )}
 
-    return (
-        <div style={messageStyle}>
-            {message}
-        </div>
-    )
+   
 }
 
 export default Notification
