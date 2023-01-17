@@ -99,7 +99,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={newMessage} error={newError} />
+      <Notification message={newMessage} />
       <Error error={newError} />
       <Filter name={newSearch} handle={handleSearch} />
       <h2>add new</h2>
